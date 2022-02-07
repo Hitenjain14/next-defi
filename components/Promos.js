@@ -1,10 +1,20 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
 
-function Promos() {
+function Promos({ items }) {
   return (
     <Wrapper>
-      <OfferCard>
+      {items.map((item) => (
+        <>
+          <OfferCard>
+            <Title>{item.title}</Title>
+            <Description>{item.description}</Description>
+            <Placeholder />
+            <Additional>{item.additional}</Additional>
+          </OfferCard>
+        </>
+      ))}
+      {/* <OfferCard>
         <Title>Invest Today</Title>
         <Description>Our coins are going to the moon!</Description>
         <Placeholder />
@@ -26,7 +36,7 @@ function Promos() {
           Some Transactions can take upto 1-2 mins depending on the traffic,
           Don't worry every transaction will be executed
         </Additional>
-      </OfferCard>
+      </OfferCard> */}
     </Wrapper>
   );
 }

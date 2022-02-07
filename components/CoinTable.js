@@ -54,9 +54,9 @@ function CoinTable({ coins }) {
                   </tr>
                 </thead>
                 <tbody className="divide-y-4 divide-gray-900">
-                  {info.map((coin) => (
+                  {info.map((coin, index) => (
                     <>
-                      <CoinRow key={coin.address} coin={coin} bal={balance} />
+                      <CoinRow key={index} coin={coin} bal={balance} />
                     </>
                   ))}
                 </tbody>
@@ -70,6 +70,7 @@ function CoinTable({ coins }) {
               Download Metamask extension to enter the world of Crypto 🚀
               <div className="text-center mt-2">
                 <a
+                  target="_blank"
                   className="text-blue-500 text-xs font-sans border-b-[1px] border-solid border-blue-700 "
                   href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
                 >

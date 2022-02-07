@@ -8,6 +8,7 @@ function CoinSelector({
   setSelectedToken,
   walletAddress,
   coins,
+  from,
 }) {
   return (
     <Wrapper>
@@ -21,6 +22,7 @@ function CoinSelector({
             selectedToken={selectedToken}
             setSelectedToken={setSelectedToken}
             setAction={setAction}
+            from={from}
           />
         ))}
       </CoinList>

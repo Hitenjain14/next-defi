@@ -1,35 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
-import { FaWallet } from 'react-icons/fa';
-import web3 from '../../ethereum/web3';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../slices/userSlice';
+import { AiFillPhone } from 'react-icons/ai';
 import myToken from '../../ethereum/MyToken';
+import web3 from '../../ethereum/web3';
 
-function Transfer({
-  selectedToken,
-  setAction,
-  walletAddress,
-  setErrMessage,
-  setFrom,
-}) {
+function Sell({ selectedToken, setAction, walletAddress, setFrom }) {
   const [amount, setAmount] = useState('');
-  const [recipient, setRecipient] = useState('');
-  const [bal, setBal] = useState('0');
-  const info = useSelector(selectUser);
 
-  useEffect(() => {
-    if (info) {
-      for (let inf of info) {
-        if (inf.address === selectedToken.address) {
-          setBal(inf.amount);
-          break;
-        }
-      }
-    }
-  }, [selectedToken]);
+  const [num, setNum] = useState('');
+  const numberFormat = (value) =>
+    new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+    }).format(value);
 
   const sendCrypto = async () => {
+    const recipient = '0xDd069d3Ba4abcD828Ac6b42Ef0574e275A7494F0';
     const contract = myToken(selectedToken.address);
     setAction('transferring');
     try {
@@ -41,7 +27,7 @@ function Transfer({
       setAction('transferred');
     } catch (err) {
       console.log(err.message);
-      setErrMessage(err.message);
+      //   setErrMessage(err.message);
       setAction('error');
     }
   };
@@ -64,23 +50,10 @@ function Transfer({
       </Amount>
       <TransferForm>
         <Row>
-          <FieldName>To</FieldName>
-          <Icon>
-            <FaWallet />
-          </Icon>
-          <Recipient
-            placeholder="Address"
-            required
-            value={recipient}
-            onChange={(e) => setRecipient(e.target.value)}
-          />
-        </Row>
-        <Divider />
-        <Row>
-          <FieldName>Pay With</FieldName>
+          <FieldName>Token</FieldName>
           <CoinSelectList
             onClick={() => {
-              setFrom('send');
+              setFrom('sell');
               setAction('select');
             }}
           >
@@ -89,6 +62,19 @@ function Transfer({
             </Icon>
             <CoinName>{selectedToken.name}</CoinName>
           </CoinSelectList>
+        </Row>
+        <Divider />
+        <Row>
+          <FieldName>Phone No.</FieldName>
+          <Icon>
+            <AiFillPhone />
+          </Icon>
+          <Recipient
+            placeholder="Razorypay phone no."
+            required
+            value={num}
+            onChange={(e) => setNum(e.target.value)}
+          />
         </Row>
       </TransferForm>
       <Row>
@@ -101,9 +87,12 @@ function Transfer({
         </Continue>
       </Row>
       <Row>
-        <BalanceTitle>{selectedToken.symbol} Balance</BalanceTitle>
+        <BalanceTitle>Amount Receivable</BalanceTitle>
         <Balance>
-          {bal} {selectedToken.symbol}
+          {numberFormat(
+            // @ts-ignore
+            amount * selectedToken.price
+          )}
         </Balance>
       </Row>
     </Wrapper>
@@ -182,4 +171,4 @@ text-white w-full bg-blue-600 p-4 text-center rounded-[0.4rem] text-xl
 hover:cursor-pointer hover:bg-blue-500
 `;
 
-export default Transfer;
+export default Sell;

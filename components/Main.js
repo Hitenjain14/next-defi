@@ -3,13 +3,14 @@ import tw from 'tailwind-styled-components';
 import Portfolio from './Portfolio';
 import CoinTable from './CoinTable';
 import Promos from './Promos';
+import { promoItems } from '../utils/assetPromos';
 
 function Main({ coins }) {
   return (
     <Wrapper>
       {/* <Portfolio coins={coins} /> */}
       <CoinTable coins={coins} />
-      <Promos />
+      <Promos items={promoItems} />
     </Wrapper>
   );
 }

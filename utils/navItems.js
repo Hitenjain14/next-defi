@@ -13,29 +13,36 @@ export const navItems = [
   {
     title: 'Assets',
     icon: <AiOutlinePieChart />,
+    link: '/',
   },
   {
     title: 'Trade',
     icon: <BiTrendingUp />,
+    link: '/',
   },
   {
     title: 'Pay',
     icon: <RiCoinsLine />,
+    link: '/',
   },
   {
     title: 'Create Your Token',
     icon: <GiToken />,
+    link: '/createToken',
   },
   {
     title: 'List Your Token',
     icon: <AiOutlinePlusCircle />,
+    link: '/',
   },
   {
     title: 'Notifications',
     icon: <RiNotification3Line />,
+    link: '/',
   },
   {
     title: 'Send a gift',
     icon: <AiOutlineGift />,
+    link: '/',
   },
 ];

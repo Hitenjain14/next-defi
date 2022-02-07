@@ -26,7 +26,9 @@ function CoinRow({ coin, bal }) {
           <div className="mb-0.5 ml-2 font-medium text-base">
             {numberFormat(coin.balance)}
           </div>
-          <div className="text-sm text-gray-500 font-semibold">coin.amount</div>
+          <div className="text-sm text-gray-500 font-semibold">
+            {coin.amount}
+          </div>
         </div>
       </td>
       <td className="px-8 py-6">

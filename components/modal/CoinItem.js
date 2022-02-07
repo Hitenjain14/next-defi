@@ -8,6 +8,7 @@ function CoinItem({
   selectedToken,
   setSelectedToken,
   setAction,
+  from,
 }) {
   const numberFormat = (value) =>
     new Intl.NumberFormat('en-IN', {
@@ -19,7 +20,7 @@ function CoinItem({
       style={{ backgroundColor: selectedToken.name === coin.name && '#141519' }}
       onClick={() => {
         setSelectedToken(coin);
-        setAction('send');
+        setAction(from);
       }}
     >
       <Main>

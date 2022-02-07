@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
-import Transfer from './Transfer';
+import Buy from './Buy';
+import Sell from './Sell';
 import CoinSelector from './CoinSelector';
-import Receive from './Receive';
 
-function TransferModal({ coins, address }) {
-  const [active, setActive] = useState('send');
+function BuyModal({ coins, address }) {
+  const [active, setActive] = useState('buy');
   const [selectedToken, setSelectedToken] = useState(coins[0]);
-  const [errMessage, setErrMessage] = useState('');
-  const [from, setFrom] = useState('send');
-
+  const [from, setFrom] = useState('buy');
   const selectedStyle = {
     color: '#3773f5',
   };
@@ -20,26 +18,24 @@ function TransferModal({ coins, address }) {
 
   const selectedModal = (option) => {
     switch (option) {
-      case 'send':
+      case 'buy':
         return (
-          <Transfer
+          <Buy
             selectedToken={selectedToken}
             setAction={setActive}
             walletAddress={address}
-            setErrMessage={setErrMessage}
             setFrom={setFrom}
           />
         );
-      case 'receive':
+      case 'sell':
         return (
-          <Receive
+          <Sell
+            selectedToken={selectedToken}
             setAction={setActive}
             walletAddress={address}
-            selectedToken={selectedToken}
             setFrom={setFrom}
           />
         );
-
       case 'select':
         return (
           <CoinSelector
@@ -54,7 +50,7 @@ function TransferModal({ coins, address }) {
       case 'transferring':
         return (
           <div className="text-center">
-            <h2 className="text-xl text-semibold ">Transferring..</h2>
+            <h2 className="text-xl text-semibold ">Executing..</h2>
             <svg
               role="status"
               className="inline mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -77,7 +73,7 @@ function TransferModal({ coins, address }) {
         return (
           <div className="text-center flex items-center justify-center">
             <h2 className="text-green-500 text-xl text-semibold">
-              Transferred
+              Transaction Completed
             </h2>
           </div>
         );
@@ -90,7 +86,7 @@ function TransferModal({ coins, address }) {
           </div>
         );
       default:
-        return <h2>send</h2>;
+        return <h2>Yo</h2>;
     }
   };
 
@@ -98,22 +94,24 @@ function TransferModal({ coins, address }) {
     <Wrapper>
       <Selector>
         <Option
-          style={active === 'send' ? selectedStyle : unselectedStyle}
-          onClick={() => setActive('send')}
+          style={active === 'buy' ? selectedStyle : unselectedStyle}
+          onClick={() => setActive('buy')}
         >
-          <p>Send</p>
+          <p>Buy</p>
         </Option>
         <Option
-          style={active === 'receive' ? selectedStyle : unselectedStyle}
-          onClick={() => setActive('receive')}
+          style={active === 'sell' ? selectedStyle : unselectedStyle}
+          onClick={() => setActive('sell')}
         >
-          <p>Receive</p>
+          <p>Sell</p>
         </Option>
       </Selector>
       <ModalMain>{selectedModal(active)}</ModalMain>
     </Wrapper>
   );
 }
+
+export default BuyModal;
 
 const Wrapper = tw.div`
  h-[35rem] w-[27rem] text-white border-[1px] border-solid border-gray-900 flex flex-col
@@ -123,7 +121,6 @@ const Wrapper = tw.div`
 const Selector = tw.div`
 flex justify-evenly items-center h-20
 `;
-
 const Option = tw.div`
 h-full w-full grid place-items-center text-xl font-semibold hover:cursor-pointer
 hover:bg-gray-900 min-w-[215px] min-h-[80px]
@@ -132,5 +129,3 @@ hover:bg-gray-900 min-w-[215px] min-h-[80px]
 const ModalMain = tw.div`
 p-4 flex-1  overflow-y-scroll scrollbar-hide
 `;
-
-export default TransferModal;

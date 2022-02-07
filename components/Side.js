@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import tw from 'tailwind-styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
 import { navItems } from '../utils/navItems';
+import { useRouter } from 'next/router';
 
 function Side() {
+  const router = useRouter();
   const [active, setActiveIcon] = useState(navItems[0].title);
-  console.log(active);
+  console.log(router.pathname);
+
+  useEffect(() => {
+    if (router.pathname === '/createToken') {
+      setActiveIcon('Create Your Token');
+    }
+  }, []);
+
   return (
     <Wrapper>
       <LogoContainer>
@@ -20,14 +30,18 @@ function Side() {
       </LogoContainer>
       <NavItemsContainer>
         {navItems.map((item, index) => (
-          <NavItem key={index} onClick={() => setActiveIcon(item.title)}>
-            <NavIcon
-              className={active === item.title ? 'text-blue-500' : 'text-white'}
-            >
-              {item.icon}
-            </NavIcon>
-            <NavTitle>{item.title}</NavTitle>
-          </NavItem>
+          <Link href={item.link}>
+            <NavItem key={item.title} onClick={() => setActiveIcon(item.title)}>
+              <NavIcon
+                className={
+                  active === item.title ? 'text-blue-500' : 'text-white'
+                }
+              >
+                {item.icon}
+              </NavIcon>
+              <NavTitle>{item.title}</NavTitle>
+            </NavItem>
+          </Link>
         ))}
       </NavItemsContainer>
     </Wrapper>

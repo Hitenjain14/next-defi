@@ -37,3 +37,6 @@ export default mongoose.models.Coin || mongoose.model('Coin', coinSchema);
 // 0x885ca2F73ebcf4deDcfb54e4A4aC49DB6123bf70 spider man
 //0x280d91Ab8cCA428CF32992de909868249743D6E5 squid games
 //0x95EEef28449e44B10d2d119afBFd7C7CE32AB026 dino gaming
+
+// rzp_test_8axYuImu2N6K4d
+// b6N1jeuF1K9LUfeXDBRGpxcZ

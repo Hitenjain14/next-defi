@@ -12,6 +12,7 @@ import Modal from 'react-modal';
 import { useRouter } from 'next/router';
 import TransferModal from './modal/TransferModal';
 import Link from 'next/link';
+import BuyModal from './modal/BuyModal';
 
 Modal.setAppElement('#__next');
 
@@ -41,9 +42,9 @@ function Header({ coins, address }) {
   const connect = () => {
     connectWallet('injected');
 
-    // if (address) {
-    //   setWallet(address);
-    // }
+    if (address) {
+      setWallet(address);
+    }
   };
 
   useEffect(() => {
@@ -71,7 +72,6 @@ function Header({ coins, address }) {
               info.symbol = coin.symbol;
               info.change = (Math.random() * 40 - 20).toPrecision(2);
               dispatch(addInfo(info));
-              console.log(info);
             }
           }
         })
@@ -115,8 +115,12 @@ function Header({ coins, address }) {
             Connect
           </div>
         )}
-
-        <Button>Buy/Sell</Button>
+        {address && (
+          <Link href={'/?buyWind=1'}>
+            <Button>Buy/Sell</Button>
+          </Link>
+        )}
+        {!address && <Button onClick={notify}>Buy/Sell</Button>}
         {address && (
           <Link href={'/?transfer=1'}>
             <div className="bg-black text-white border-2 border-solid border-gray-800 p-5 font-bold rounded-md mr-4 hover:cursor-pointer shadow-lg text-lg ">
@@ -153,6 +157,13 @@ function Header({ coins, address }) {
         style={customStyles}
       >
         <TransferModal coins={coins} address={address} />
+      </Modal>
+      <Modal
+        isOpen={!!router.query.buyWind}
+        onRequestClose={() => router.push('/')}
+        style={customStyles}
+      >
+        <BuyModal coins={coins} address={address} />
       </Modal>
     </Wrapper>
   );

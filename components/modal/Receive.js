@@ -3,7 +3,7 @@ import tw from 'tailwind-styled-components';
 import { BiCopy } from 'react-icons/bi';
 import { FaCheck } from 'react-icons/fa';
 
-function Receive({ setAction, selectedToken, walletAddress }) {
+function Receive({ setAction, selectedToken, walletAddress, setFrom }) {
   const [copied, setCopied] = useState(false);
 
   return (
@@ -16,7 +16,12 @@ function Receive({ setAction, selectedToken, walletAddress }) {
         </QRContainer>
         <Divider />
         <Row>
-          <CoinSelectList>
+          <CoinSelectList
+            onClick={() => {
+              setFrom('receive');
+              setAction('select');
+            }}
+          >
             <Icon>
               <IconImg src={`/${selectedToken.logo}.png`} />
             </Icon>
