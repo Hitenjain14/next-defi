@@ -33,7 +33,7 @@ export const navItems = [
   {
     title: 'List Your Token',
     icon: <AiOutlinePlusCircle />,
-    link: '/',
+    link: '/listToken',
   },
   {
     title: 'Notifications',

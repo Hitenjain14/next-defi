@@ -12,6 +12,8 @@ function Side() {
   useEffect(() => {
     if (router.pathname === '/createToken') {
       setActiveIcon('Create Your Token');
+    } else if (router.pathname === '/listToken') {
+      setActiveIcon('List Your Token');
     }
   }, []);
 

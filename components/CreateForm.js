@@ -76,14 +76,14 @@ function CreateForm({ address }) {
     flex justify-center"
       >
         <Content>
-          <div className="text-blue-500 mt-6 py-10 px-9 text-3xl font-bold border-[1px] border-solid border-gray-900">
+          <div className="text-blue-500 mt-6 py-10 px-9 text-3xl font-bold border-[1px] border-solid border-gray-900 shadow-lg shadow-blue-500/50">
             Token Creation
           </div>
           <form
             onSubmit={(e) => {
               createToken(e);
             }}
-            className="border-[1px] border-solid border-gray-900 px-[62px] py-10 h-full"
+            className="border-[1px] border-solid border-gray-900 px-[62px] py-10 h-full shadow-lg shadow-blue-500/50 "
           >
             <div className="flex flex-col justify-center">
               <div className="relative z-0 mb-6 w-full group">
