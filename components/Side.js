@@ -30,8 +30,8 @@ function Side() {
       </LogoContainer>
       <NavItemsContainer>
         {navItems.map((item, index) => (
-          <Link href={item.link}>
-            <NavItem key={item.title} onClick={() => setActiveIcon(item.title)}>
+          <Link key={index} href={item.link}>
+            <NavItem onClick={() => setActiveIcon(item.title)}>
               <NavIcon
                 className={
                   active === item.title ? 'text-blue-500' : 'text-white'

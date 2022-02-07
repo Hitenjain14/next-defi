@@ -71,6 +71,7 @@ function CoinTable({ coins }) {
               <div className="text-center mt-2">
                 <a
                   target="_blank"
+                  rel="noreferrer"
                   className="text-blue-500 text-xs font-sans border-b-[1px] border-solid border-blue-700 "
                   href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
                 >

@@ -25,9 +25,9 @@ function Portfolio({ coins }) {
           </TableItem>
           <Divider />
           <div>
-            {coins.map((coin) => (
-              <div>
-                <Coin key={coin.id} coin={coin} />
+            {coins.map((coin, index) => (
+              <div key={index}>
+                <Coin coin={coin} />
                 <Divider />
               </div>
             ))}
