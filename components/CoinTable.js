@@ -55,9 +55,7 @@ function CoinTable({ coins }) {
                 </thead>
                 <tbody className="divide-y-4 divide-gray-900">
                   {info.map((coin, index) => (
-                    <>
-                      <CoinRow key={index} coin={coin} bal={balance} />
-                    </>
+                    <CoinRow key={index} coin={coin} bal={balance} />
                   ))}
                 </tbody>
               </table>

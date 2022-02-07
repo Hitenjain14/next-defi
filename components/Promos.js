@@ -5,14 +5,12 @@ function Promos({ items }) {
   return (
     <Wrapper>
       {items.map((item) => (
-        <>
-          <OfferCard>
-            <Title>{item.title}</Title>
-            <Description>{item.description}</Description>
-            <Placeholder />
-            <Additional>{item.additional}</Additional>
-          </OfferCard>
-        </>
+        <OfferCard key={item.title}>
+          <Title>{item.title}</Title>
+          <Description>{item.description}</Description>
+          <Placeholder />
+          <Additional>{item.additional}</Additional>
+        </OfferCard>
       ))}
       {/* <OfferCard>
         <Title>Invest Today</Title>

@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 function Side() {
   const router = useRouter();
   const [active, setActiveIcon] = useState(navItems[0].title);
-  console.log(router.pathname);
 
   useEffect(() => {
     if (router.pathname === '/createToken') {

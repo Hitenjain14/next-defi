@@ -39,11 +39,11 @@ function Header({ coins, address }) {
     },
   };
 
-  const connect = () => {
-    connectWallet('injected');
-
-    if (address) {
-      setWallet(address);
+  const connect = async () => {
+    await connectWallet('injected');
+    const accounts = await web3.eth.getAccounts();
+    if (accounts) {
+      setWallet(accounts[0]);
     }
   };
 
