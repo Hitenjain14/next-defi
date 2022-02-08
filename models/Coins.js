@@ -9,6 +9,7 @@ const coinSchema = new mongoose.Schema({
   address: {
     type: String,
     required: [true, 'A address is required'],
+    unique: true,
   },
   price: {
     type: Number,

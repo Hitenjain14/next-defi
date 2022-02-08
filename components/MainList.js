@@ -1,11 +1,14 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
 import CreateListForm from './CreateListForm';
+import Promos from './Promos';
+import { listItems } from '../utils/assetPromos';
 
 function MainList({ address }) {
   return (
     <Wrapper>
       <CreateListForm address={address} />
+      <Promos items={listItems} />
     </Wrapper>
   );
 }

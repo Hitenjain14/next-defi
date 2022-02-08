@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import tw from 'tailwind-styled-components';
 // @ts-ignore
 import { FaWallet } from 'react-icons/fa';
@@ -13,9 +13,22 @@ function CreateListForm({ address }) {
   const [token, setToken] = useState('');
   const [logo, setLogo] = useState();
   const [price, setPrice] = useState('');
+  const [listing, setListing] = useState(false);
 
   const notifyError = () => {
-    toast.error(' Logo is missing or price is not a number', {
+    toast.error(' Logo is missing or address is not valid', {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+    });
+  };
+  const notifySuccess = () => {
+    toast.success(' Token Listed', {
       position: 'top-center',
       autoClose: 3000,
       hideProgressBar: false,
@@ -33,6 +46,7 @@ function CreateListForm({ address }) {
 
   const listToken = async (e) => {
     e.preventDefault();
+    setListing(true);
     var regex = /^[0-9]+$/;
     // @ts-ignore
     if (!logo || !price.match(regex)) {
@@ -52,6 +66,7 @@ function CreateListForm({ address }) {
 
       const name = await contract.methods.name().call();
       const symbol = await contract.methods.symbol().call();
+      // @ts-ignore
 
       const form = new FormData();
       form.append('address', token);
@@ -61,18 +76,21 @@ function CreateListForm({ address }) {
       form.append('symbol', symbol);
 
       const res = await axios.post('/api/upload', form, config);
-      console.log(res);
+      notifySuccess();
     } catch (err) {
       console.log(err.message);
       notifyError();
     }
+    setToken('');
+    setPrice('');
+    setListing(false);
   };
 
   return (
     <Wrapper>
       <div className="flex flex-1 justify-center w-full">
         <Content>
-          <div className="text-3xl text-blue-500 font-bold border-[1px] border-solid border-gray-800 p-10 shadow-lg shadow-blue-500/50  ">
+          <div className="text-3xl text-blue-500 font-bold border-[1px] border-solid border-gray-800 p-12 shadow-lg shadow-blue-500/50  ">
             List Your Token
           </div>
           <form
@@ -122,6 +140,7 @@ function CreateListForm({ address }) {
                   Price
                 </label>
               </div>
+
               <div className="">
                 <button
                   onClick={() => uploadFile()}
@@ -134,11 +153,7 @@ function CreateListForm({ address }) {
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"
-                      clip-rule="evenodd"
-                    />
+                    <path d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" />
                   </svg>
                   Upload Logo
                 </button>
@@ -163,8 +178,9 @@ function CreateListForm({ address }) {
                   onChange={(e) => setLogo(e.target.files)}
                 />
               </div>
+
               {logo && (
-                <div className="text-base text-gray-300  mt-1">
+                <div className="text-base text-gray-300  mt-1 max-w-[122px] break-words">
                   {
                     // @ts-ignore
                     logo[0].name
@@ -172,14 +188,43 @@ function CreateListForm({ address }) {
                 </div>
               )}
             </div>
-            <div className="mt-4">
+            {listing && (
               <button
-                type="submit"
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br   font-medium rounded-lg text-sm px-16 py-2.5 text-center mr-2 mb-2"
+                disabled
+                className="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
               >
-                Submit
+                <svg
+                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
+                Processing...
               </button>
-            </div>
+            )}
+            {!listing && (
+              <div className="mt-4">
+                <button
+                  type="submit"
+                  className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br   font-medium rounded-lg text-sm px-16 py-2.5 text-center mr-2 mb-2"
+                >
+                  Submit
+                </button>
+              </div>
+            )}
           </form>
         </Content>
       </div>

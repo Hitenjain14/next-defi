@@ -44,3 +44,17 @@ export const createItems = [
       `,
   },
 ];
+
+export const listItems = [
+  {
+    title: 'List Token',
+    description: 'Give address of your token, an apt price and a stunning logo',
+    additional: 'Check out your coin on assets tab',
+  },
+  {
+    title: 'Tell the World',
+    description: 'Let everyone know about your token',
+    additional:
+      'Post about your token on twitter,instagram and let the community know about it ',
+  },
+];
